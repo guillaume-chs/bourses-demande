@@ -13,7 +13,7 @@
     "application/json"
   ],
   "paths": {
-    "/requete": {
+    "/requeteur": {
       "get": {
         "summary": "Afficher le formulaire de demande",
         "parameters": [],
@@ -53,7 +53,9 @@
                 },
                 "revenuFiscalReference": {
                   "type": "number",
-                  "description": "Revenu fiscal de référence à N-1"
+                  "description": "Revenu fiscal de référence à N-1",
+                  "default": 0,
+                  "minimum": 0
                 },
                 "geolocFoyer": {
                   "required": [
