@@ -16,15 +16,7 @@
     "/requete": {
       "get": {
         "summary": "Afficher le formulaire de demande",
-        "parameters": [
-          {
-            "name": "user_email",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": "Email de l'utilisateur (identifiant)"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Affichage du formulaire"
@@ -128,7 +120,7 @@
             "headers": {
               "location": {
                 "type": "string",
-                "description": "Location du formulaire créé"
+                "description": "URI de la demande créée"
               }
             }
           },
