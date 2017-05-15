@@ -85,10 +85,10 @@ legend:hover {
                 <div id="map1"></div><br />
 
                 <label for="latfoyer">Latitude 
-                    <input type="text" name="latfoyer" id="lat1" readonly="yes" disabled />
+                    <input type="text" name="latfoyer" id="lat1" readonly="yes" />
                 </label>
                 <label for="longfoyer">Longitude 
-                    <input type="text" name="longfoyer" id="lng1" readonly="yes" disabled />
+                    <input type="text" name="longfoyer" id="lng1" readonly="yes" />
                 </label>
             </fieldset>
 
@@ -97,10 +97,10 @@ legend:hover {
                 <div id="map2"></div><br />
 
                 <label for="latecole">Latitude 
-                    <input type="text" name="latecole" id="lat2" readonly="yes" disabled />
+                    <input type="text" name="latecole" id="lat2" readonly="yes" />
                 </label>
                 <label for="longecole">Longitude 
-                    <input type="text" name="longecole" id="lng2" readonly="yes" disabled />
+                    <input type="text" name="longecole" id="lng2" readonly="yes" />
                 </label>
             </fieldset>
 
@@ -119,11 +119,11 @@ legend:hover {
             </fieldset>
 
             <div class="btn-container">
-                <input type="submit" name="bourses-requete--submit" value="APPUYEZ ICI POUR VALIDER PLZ" class="btnsbmit"/>
+                <input type="submit" value="APPUYEZ ICI POUR VALIDER PLZ" class="btnsbmit"/>
             </div>
         </form>
 
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2mGraK3kk-asOiTD2kj1UExK6jc0hUnU&callback=initMap" type="text/javascript"></script>
         <script type="text/JavaScript">
             (function(global) {
     var map1, map2;

@@ -53,27 +53,32 @@ server.register([require('inert'), {
                 payload: {
                     beneficiaire: Joi.string().email().required(),
                     revenuFiscalReference: Joi.number().required().min(0),
-                    geolocFoyer: Joi.object().required().keys({
-                        lat: Joi.number().required(),
-                        long: Joi.number().required()
-                    }).with('lat', 'long'),
-                    geolocEcole: Joi.object().required().keys({
-                        lat: Joi.number().required(),
-                        long: Joi.number().required()
-                    }).with('lat', 'long'),
+                    latfoyer: Joi.number().required(),
+                    longfoyer: Joi.number().required(),
+                    latecole: Joi.number().required(),
+                    longecole: Joi.number().required(),
                     nbPersonnesCharge: Joi.number().min(0).max(100).required(),
                     statut: Joi.string().valid('DEPOSE', 'REFUSE', 'EN_TRAITEMENT', 'EN_PAIEMENT', 'ARCHIVE').default('DEPOSE')
                 }
             },
             handler: (request, reply) => {
+                console.log(request.payload);
+                request.payload['geolocFoyer'] = {
+                    lat: request.payload.latfoyer,
+                    long: request.payload.longfoyer 
+                };
+                request.payload['geolocEcole'] = {
+                    lat: request.payload.latecole,
+                    long: request.payload.longecole
+                };
+
                 const post = http.request({
                     host: 'localhost',
                     port: 82,
                     path: '/bourses',
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Content-Length': Buffer.byteLength(request.payload)
+                        'Content-Type': 'application/json'
                     }
                 }, (result) => {
                     console.log(`STATUS: ${res.statusCode}`);
@@ -87,8 +92,8 @@ server.register([require('inert'), {
                 post.on('error', (e) => {
                     console.error(`problem with request: ${e.message}`);
                 });
-                post.write(request.payload);
-                post.send();
+                post.write(JSON.stringify(request.payload));
+                post.end();
             }
         }
     });
