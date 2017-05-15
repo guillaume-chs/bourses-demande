@@ -1,9 +1,11 @@
 'use strict';
 
+const Path = require('path');
+const http = require('http');
+
 const Hapi = require('hapi');
 const Good = require('good');
 const Joi = require('joi');
-const http = require('http');
 
 // Create a server with a host and port
 const server = new Hapi.Server();   
@@ -12,7 +14,7 @@ server.connection({
     port: 81
 });
 
-server.register({
+server.register([require('inert'), {
     register: Good,
     options: {
         reporters: {
@@ -28,16 +30,16 @@ server.register({
             }, 'stdout']
         }
     }
-}, (err) => {
+}], (err) => {
     if (err) throw err;
 
     server.route({
         method: 'GET',
-        path: '/requete',
+        path: '/requeteur',
         config: {
             description: 'Retrieve bourses request HTML form',
             handler: {
-                file: 'index.html'
+                file: Path.join(__dirname, 'requetebis.html')
             }
         }
     });
