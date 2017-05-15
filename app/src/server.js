@@ -39,7 +39,7 @@ server.register([require('inert'), {
         config: {
             description: 'Retrieve bourses request HTML form',
             handler: {
-                file: Path.join(__dirname, 'requetebis.html')
+                file: Path.join(__dirname, 'index.html')
             }
         }
     });
