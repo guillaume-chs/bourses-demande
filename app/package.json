@@ -7,15 +7,19 @@
     "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository"   : {
-    "type" : "git",
-    "url" : "git://github.com/guillaume-chs/bourses-demande"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/guillaume-chs/bourses-demande"
   },
   "keywords": [
-    "bourses-requete", "requete",
-    "bourses-request", "request",
-    "node", "nodejs",
-    "hapi", "hapijs"
+    "bourses-requete",
+    "requete",
+    "bourses-request",
+    "request",
+    "node",
+    "nodejs",
+    "hapi",
+    "hapijs"
   ],
   "author": "Guillaume Chanson <guillaume.chns@gmail.com>",
   "license": "MIT",
@@ -25,6 +29,7 @@
     "good-squeeze": "^5.0.2",
     "hapi": "^16.1.1",
     "hapi-auth-basic": "^4.2.0",
+    "inert": "^4.2.0",
     "joi": "^10.4.1"
   }
 }
