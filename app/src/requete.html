@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demande de bourses</title>
+        <meta charset="UTF-8" />
+
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <!--
+            - RFN n-1 Revenus
+            - Adresse loyer  google foyer
+            - Adresse Etude  google ecole
+            - nb personne à charge
+        -->
+        <form name="bourses-requete" method="POST">
+            <label class="email" for="bourses-requete__email"> RENSEIGNEZ VOTRE E-MAIL
+                <input type="email" name="bourses-requete__email" />
+            </label>
+            
+            <fieldset>
+                <legend>Adresse du foyer de l'étudiant</legend>
+                <div id="map1"></div><br />
+
+                <label for="bourses-requete__adresse-foyer--lat">Lontitude 
+                    <input type="text" name="bourses-requete__adresse-foyer--lat" id="lat1" readonly="yes" disabled />
+                </label>
+                <label for="bourses-requete__adresse-foyer--long">Lagitude 
+                    <input type="text" name="bourses-requete__adresse-foyer--long" id="lng1" readonly="yes" disabled />
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Adresse de l'école de l'étudiant</legend>
+                <div id="map2"></div><br />
+
+                <label for="bourses-requete__adresse-ecole--lat">Lontitude 
+                    <input type="text" name="bourses-requete__adresse-ecole--lat" id="lat2" readonly="yes" disabled />
+                </label>
+                <label for="bourses-requete__adresse-ecole--long">Lagitude 
+                    <input type="text" name="bourses-requete__adresse-ecole--long" id="lng2" readonly="yes" disabled />
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Informations complémentaires</legend>
+                
+                <label for="bourses-requete__nombre-personne-charge">Nombre de personnes à charge 
+                    <input type="number" name="bourses-requete__nombre-personne-charge" min="0" max="100" step="1"/>
+                </label>
+                
+                <br />
+                
+                <label for="bourses-requete__revenus">Revenus (année <b><u><i>N-1</i></u></b>)
+                    <input type="text" name="bourses-requete__revenus" /> en euros
+                </label>
+            </fieldset>
+
+            <div class="btn-container">
+                <input type="submit" name="bourses-requete--submit" value="APPUYEZ ICI POUR VALIDER PLZ" class="btnsbmit"/>
+            </div>
+        </form>
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+        <script type="text/JavaScript" src="map.js"></script>
+    </body>
+</html>

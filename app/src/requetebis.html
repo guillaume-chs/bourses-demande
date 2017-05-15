@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demande de bourses</title>
+        <meta charset="UTF-8" />
+
+        <style type="text/css">
+            #map1, #map2 {
+    width:500px;
+    height: 300px;
+}
+
+.btn-container {
+
+    width: 100%;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    align-items: center;
+
+}
+
+.btnsbmit {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+
+.btnsbmit {
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+    background-color: fuchsia;
+}
+
+fieldset {
+    background-color: cyan;
+}
+
+label:hover {
+    font-size: 50px;
+  animation: coucou 1s linear infinite;
+}
+
+@keyframes coucou {
+    0%   {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: blue;}
+    100% {background-color: green;}
+}
+
+legend:hover {
+    font-size: 50px;
+  animation: coucou 1s linear infinite;
+}
+
+.email, .email input {
+    font-size: 20px;
+    text-align: center;
+}
+        </style>
+    </head>
+    <body>
+        <!--
+            - RFN n-1 Revenus
+            - Adresse loyer  google foyer
+            - Adresse Etude  google ecole
+            - nb personne à charge
+        -->
+        <form name="bourses-requete" method="POST">
+            <label class="email" for="bourses-requete__email"> RENSEIGNEZ VOTRE E-MAIL
+                <input type="email" name="bourses-requete__email" />
+            </label>
+            
+            <fieldset>
+                <legend>Adresse du foyer de l'étudiant</legend>
+                <div id="map1"></div><br />
+
+                <label for="bourses-requete__adresse-foyer--lat">Lontitude 
+                    <input type="text" name="bourses-requete__adresse-foyer--lat" id="lat1" readonly="yes" disabled />
+                </label>
+                <label for="bourses-requete__adresse-foyer--long">Lagitude 
+                    <input type="text" name="bourses-requete__adresse-foyer--long" id="lng1" readonly="yes" disabled />
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Adresse de l'école de l'étudiant</legend>
+                <div id="map2"></div><br />
+
+                <label for="bourses-requete__adresse-ecole--lat">Lontitude 
+                    <input type="text" name="bourses-requete__adresse-ecole--lat" id="lat2" readonly="yes" disabled />
+                </label>
+                <label for="bourses-requete__adresse-ecole--long">Lagitude 
+                    <input type="text" name="bourses-requete__adresse-ecole--long" id="lng2" readonly="yes" disabled />
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Informations complémentaires</legend>
+                
+                <label for="bourses-requete__nombre-personne-charge">Nombre de personnes à charge 
+                    <input type="number" name="bourses-requete__nombre-personne-charge" min="0" max="100" step="1"/>
+                </label>
+                
+                <br />
+                
+                <label for="bourses-requete__revenus">Revenus (année <b><u><i>N-1</i></u></b>)
+                    <input type="text" name="bourses-requete__revenus" /> en euros
+                </label>
+            </fieldset>
+
+            <div class="btn-container">
+                <input type="submit" name="bourses-requete--submit" value="APPUYEZ ICI POUR VALIDER PLZ" class="btnsbmit"/>
+            </div>
+        </form>
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+        <script type="text/JavaScript">
+            (function(global) {
+    var map1, map2;
+    var marker1 = false, marker2 = false;
+
+    function markerLocation(bool){
+        //Get location.
+        var currentLocation = bool ? marker1.getPosition() : marker2.getPosition();
+        //Add lat and lng values to a field that we can save.
+        document.getElementById(bool ? 'lat1' : 'lat2').value = currentLocation.lat(); //latitude
+        document.getElementById(bool ? 'lng1' : 'lng2').value = currentLocation.lng(); //longitude
+    }
+
+
+    global.initMap = function initMap() {
+        //The center location of our map.
+        var centerOfMap = new google.maps.LatLng(48.899393389492054, 2.3291015625);
+    
+        //Map options.
+        var options = {
+            center: centerOfMap, //Set center.
+            zoom: 7 //The zoom value.
+        };
+    
+        //Create the map object.
+        map1 = new google.maps.Map(document.getElementById('map1'), options);
+        map2 = new google.maps.Map(document.getElementById('map2'), options);
+    
+        //Listen for any clicks on the map.
+        google.maps.event.addListener(map1, 'click', function(event) {                
+            //Get the location that the user clicked.
+            var clickedLocation = event.latLng;
+            //If the marker hasn't been added.
+            if(marker1 === false){
+                //Create the marker.
+                marker1 = new google.maps.Marker({
+                    position: clickedLocation,
+                    map: map1,
+                    draggable: true //make it draggable
+                });
+                //Listen for drag events!
+                google.maps.event.addListener(marker1, 'dragend', function(event){
+                    markerLocation(true);
+                });
+            } else{
+                //Marker has already been added, so just change its location.
+                marker1.setPosition(clickedLocation);
+            }
+            //Get the marker's location.
+            markerLocation(true);
+        });
+
+        google.maps.event.addListener(map2, 'click', function(event) {                
+            //Get the location that the user clicked.
+            var clickedLocation = event.latLng;
+            //If the marker hasn't been added.
+            if(marker2 === false){
+                //Create the marker.
+                marker2 = new google.maps.Marker({
+                    position: clickedLocation,
+                    map: map2,
+                    draggable: true //make it draggable
+                });
+                //Listen for drag events!
+                google.maps.event.addListener(marker2, 'dragend', function(event){
+                    markerLocation(false);
+                });
+            } else{
+                //Marker has already been added, so just change its location.
+                marker2.setPosition(clickedLocation);
+            }
+            //Get the marker's location.
+            markerLocation(false);
+        });
+    };
+
+    //Load the map when the page has finished loading.
+    google.maps.event.addDomListener(window, 'load', initMap);
+})(window);
+        </script>
+    </body>
+</html>

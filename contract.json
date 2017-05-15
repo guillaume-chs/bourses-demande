@@ -1,0 +1,136 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API de demande de bourses étudiantes en fonction de : revenu fiscal de référence à N-1, nombre de personnes à charges, deux adresses (école et adresse)",
+    "version": "1.0.0",
+    "title": "SolidBourse",
+    "contact": {}
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/requeteur": {
+      "get": {
+        "summary": "Afficher le formulaire de demande",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Affichage du formulaire"
+          },
+          "404": {
+            "description": "Status 404"
+          }
+        }
+      },
+      "post": {
+        "summary": "Poster une demande de bourse",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "beneficiaire",
+                "geolocEcole",
+                "geolocFoyer",
+                "nbPersonnesCharge",
+                "revenuFiscalReference",
+                "statut"
+              ],
+              "properties": {
+                "beneficiaire": {
+                  "type": "string",
+                  "description": "Bénéficiaire"
+                },
+                "revenuFiscalReference": {
+                  "type": "number",
+                  "description": "Revenu fiscal de référence à N-1",
+                  "default": 0,
+                  "minimum": 0
+                },
+                "geolocFoyer": {
+                  "required": [
+                    "lat",
+                    "long"
+                  ],
+                  "type": "object",
+                  "description": "Coordonnées GPS de l'adresse du foyer",
+                  "properties": {
+                    "lat": {
+                      "type": "number",
+                      "description": "Latitude de l'adresse du foyer"
+                    },
+                    "long": {
+                      "type": "number",
+                      "description": "Longitude de l'adresse du foyer"
+                    }
+                  }
+                },
+                "geolocEcole": {
+                  "required": [
+                    "lat"
+                  ],
+                  "type": "object",
+                  "description": "Coordonnées GPS de l'adresse de l'école",
+                  "properties": {
+                    "lat": {
+                      "type": "number",
+                      "description": "Latitude de l'adresse de l'école"
+                    },
+                    "long": {
+                      "type": "number",
+                      "description": "Longitude de l'adresse de l'école"
+                    }
+                  }
+                },
+                "nbPersonnesCharge": {
+                  "type": "integer",
+                  "description": "Nombre de personnes à charges au 1er Janvier"
+                },
+                "montantVote": {
+                  "type": "number",
+                  "description": "Montant voté"
+                },
+                "statut": {
+                  "type": "string",
+                  "description": "Statut de la requête",
+                  "default": "DEPOSE",
+                  "enum": [
+                    "DEPOSE",
+                    "REFUSE",
+                    "EN_TRAITEMENT",
+                    "EN_PAIEMENT",
+                    "ARCHIVE"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Status 201",
+            "headers": {
+              "location": {
+                "type": "string",
+                "description": "URI de la demande créée"
+              }
+            }
+          },
+          "400": {
+            "description": "Mauvais paramètres"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+#map1, #map2 {
+    width:500px;
+    height: 300px;
+}
+
+.btn-container {
+
+    width: 100%;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+
+    align-items: center;
+
+}
+
+.btnsbmit {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+
+.btnsbmit {
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+    background-color: fuchsia;
+}
+
+fieldset {
+    background-color: cyan;
+}
+
+label:hover {
+    font-size: 50px;
+  animation: coucou 1s linear infinite;
+}
+
+@keyframes coucou {
+    0%   {background-color: red;}
+    25%  {background-color: yellow;}
+    50%  {background-color: blue;}
+    100% {background-color: green;}
+}
+
+legend:hover {
+    font-size: 50px;
+  animation: coucou 1s linear infinite;
+}
+
+.email, .email input {
+    font-size: 20px;
+    text-align: center;
+}
